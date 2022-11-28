@@ -5,21 +5,31 @@ import math as m
 def f(x):
     return x**3 - x - 1 #object function
 
-title = 'Dados Iniciais = [1, 2]'
-a , b = 1. , 2.
+a = 1.
+b = 2.
 
 x = (a + b) * 0.5
 
-e1 , e2 , i = 1e-12 , 1e-12 , 0
+e1 = 1e-12
 
-alpha = 1.324717957244746 #exact value
+#exact root
+alpha = 1.324717957244746
+
+#error estimate
 err = m.fabs(alpha - x)
 
-xl , errl , pl = [] , [] , [] 
+#creating empty list to populate
+xl = []
+pl = []
+errl = []
 
-while e1 < m.fabs(f(x)) or e2 < err:
+i = 0
+
+while e1 < m.fabs(f(x)) or e1 < err:
+    
     if f(x) * f(a) < 0.:
         b = x
+    
     else:
         a = x
     
@@ -30,19 +40,17 @@ while e1 < m.fabs(f(x)) or e2 < err:
         p = m.log(m.fabs(errl[-1]/errl[-2])) / m.log(m.fabs(errl[-2]/errl[-3]))
         pl.append(p)
 
-print( title )
 print('x̄=', x)
 print('f(x̄)=', f(x))
 print('error=', err)
 print('Number of Iterations =', i)
 print('Order of Convergence =', round(pl[-1], 2))
-#print('Series of Convergence:', *pl, sep = "\n")
+print('Series of Convergence:', *pl, sep = "\n")
 
 '''
 Output:
 
-Dados Iniciais = [1, 2]
-x̄= 1.3247179572449568
+= 1.3247179572449568
 f(x̄)= 8.988365607365267e-13
 error= 2.107203300738547e-13
 Number of Iterations = 40
